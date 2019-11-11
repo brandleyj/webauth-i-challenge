@@ -7,11 +7,19 @@ const protected = require("../auth/protected-middleware");
 
 const router = express();
 
+router.get("/users", (req, res) => {
+	Users.find()
+		.then(users => {
+			res.json(users);
+		})
+		.catch(err => res.send(err));
+});
+
 router.post("/register", (req, res) => {
 	const user = req.body;
 
 	if (user.username && user.password) {
-		const hash = bcrypt.hashSync(user.password, 8);
+		const hash = bcrypt.hashSync(user.password, 14);
 
 		user.password = hash;
 
@@ -50,14 +58,6 @@ router.post("/login", (req, res) => {
 	} else {
 		res.status(400).json({ message: "Please provide credentials" });
 	}
-});
-
-router.get("/users", protected, (req, res) => {
-	Users.find()
-		.then(users => {
-			res.json(users);
-		})
-		.catch(err => res.send(err));
 });
 
 module.exports = router;
