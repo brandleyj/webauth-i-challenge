@@ -3,9 +3,6 @@ const helmet = require("helmet");
 const cors = require("cors");
 
 const UserRouter = require("./users/users-router");
-const RestrictedRouter = require("./restricted/restricted-router");
-
-const protected = require("./auth/protected-middleware");
 
 const server = express();
 
@@ -18,6 +15,5 @@ server.get("/", (req, res) => {
 });
 
 server.use("/api", UserRouter);
-server.use("/api/restricted", protected, RestrictedRouter);
 
 module.exports = server;
