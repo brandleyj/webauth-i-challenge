@@ -1,17 +1,19 @@
 const express = require("express");
 
+const protected = require("../auth/protected-middleware");
+
 router = express();
 
-router.get("/something", (req, res) => {
-	res.send("Hello World from /api/restricted/something!");
+router.get("/something", protected, (req, res) => {
+  res.send("Hello World from /api/restricted/something!");
 });
 
-router.get("/other", (req, res) => {
-	res.send("Hello World from /api/restricted/other!");
+router.get("/other", protected, (req, res) => {
+  res.send("Hello World from /api/restricted/other!");
 });
 
-router.get("/a", (req, res) => {
-	res.send("Hello World from /api/restricted/a!");
+router.get("/a", protected, (req, res) => {
+  res.send("Hello World from /api/restricted/a!");
 });
 
 module.exports = router;
